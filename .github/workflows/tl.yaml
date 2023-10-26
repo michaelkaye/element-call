@@ -22,7 +22,7 @@ jobs:
       - name: run tl
         run: |
           docker run \
-            -v trafficlight.json:/app/instance/trafficlight.json \
+            -v trafficlight-instance/:/app/instance/ \
             ghcr.io/matrix-org/trafficlight:main
       - name: scrape archive
         if: always()

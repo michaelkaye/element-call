@@ -1,0 +1,7 @@
+{
+  "TEST_PATTERN": "/**/video/*_test.py",
+  "UPLOAD_FOLDER": "/tmp/",
+  "SERVER_OVERRIDES": {
+  },
+  "KIWI_REPORT": false
+}
