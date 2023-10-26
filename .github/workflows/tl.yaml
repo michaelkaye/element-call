@@ -20,7 +20,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: run tl
-        run: docker run ghcr.io/matrix-org/trafficlight:main -v trafficlight.json:/app/instance/trafficlight.json
+        run: |
+          docker run \
+            -v trafficlight.json:/app/instance/trafficlight.json \
+            ghcr.io/matrix-org/trafficlight:main
       - name: scrape archive
         if: always()
-        run: echo TODO: archive data and TL output
+        run: echo TODO archive data and TL output
