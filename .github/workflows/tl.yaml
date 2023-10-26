@@ -19,10 +19,12 @@ jobs:
         options: "--restart always"
     runs-on: ubuntu-latest
     steps:
+      - name: checkout
+        uses: actions/checkout@v4
       - name: run tl
         run: |
           docker run \
-            -v trafficlight-instance/:/app/instance/ \
+            -v `pwd`/trafficlight-instance/:/app/instance/ \
             ghcr.io/matrix-org/trafficlight:main
       - name: scrape archive
         if: always()
