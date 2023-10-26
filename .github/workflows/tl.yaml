@@ -1,0 +1,28 @@
+name: Run E2E tests
+on:
+  push:
+jobs:
+  tl:
+    name: E2E tests run on element call
+    services:
+      adapter1:
+        image: ghcr.io/vector-im/trafficlight-adapter-element-call:main
+        env:
+          BASE_APP_URL: https://call.element.io
+          TRAFFICLIGHT_URL: http://host-gateway:5000
+        options: "--restart always"
+      adapter2:
+        image: ghcr.io/vector-im/trafficlight-adapter-element-call:main
+        env:
+          BASE_APP_URL: https://call.element.io
+          TRAFFICLIGHT_URL: http://host-gateway:5000
+        options: "--restart always"
+    runs-on: ubuntu-latest
+    steps:
+      run:
+        script:
+          docker run ghcr.io/matrix-org/trafficlight:main -v trafficlight.json:/app/instance/trafficlight.json
+      archive:
+        if: always()
+        script:
+          echo "TODO: archive data and TL output"
