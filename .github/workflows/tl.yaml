@@ -23,4 +23,4 @@ jobs:
         run: docker run ghcr.io/matrix-org/trafficlight:main -v trafficlight.json:/app/instance/trafficlight.json
       - name: scrape archive
         if: always()
-        run: echo "TODO: archive data and TL output"
+        run: echo TODO: archive data and TL output
