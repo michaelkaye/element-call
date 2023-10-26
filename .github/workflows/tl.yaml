@@ -19,10 +19,8 @@ jobs:
         options: "--restart always"
     runs-on: ubuntu-latest
     steps:
-      run:
-        script:
-          docker run ghcr.io/matrix-org/trafficlight:main -v trafficlight.json:/app/instance/trafficlight.json
-      archive:
+      - name: run tl
+        run: docker run ghcr.io/matrix-org/trafficlight:main -v trafficlight.json:/app/instance/trafficlight.json
+      - name: scrape archive
         if: always()
-        script:
-          echo "TODO: archive data and TL output"
+        run: echo "TODO: archive data and TL output"
