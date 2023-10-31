@@ -1,5 +1,5 @@
 {
-  "TEST_PATTERN": "/**/video/*_test.py",
+  "TEST_PATTERN": "/**/*_test.py",
   "UPLOAD_FOLDER": "/tmp/",
   "SERVER_OVERRIDES": {
   },

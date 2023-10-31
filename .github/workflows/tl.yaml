@@ -2,30 +2,37 @@ name: Run E2E tests
 on:
   push:
 jobs:
-  tl:
+  trafficlight:
     name: E2E tests run on element call
     services:
       adapter1:
         image: ghcr.io/vector-im/trafficlight-adapter-element-call:main
         env:
           BASE_APP_URL: https://call.element.io
-          TRAFFICLIGHT_URL: http://host-gateway:5000
+          TRAFFICLIGHT_URL: http://trafficlight:5000
         options: "--restart always"
       adapter2:
         image: ghcr.io/vector-im/trafficlight-adapter-element-call:main
         env:
           BASE_APP_URL: https://call.element.io
-          TRAFFICLIGHT_URL: http://host-gateway:5000
+          TRAFFICLIGHT_URL: http://trafficlight:5000
         options: "--restart always"
     runs-on: ubuntu-latest
+    container:
+        image: trafficlight-tests
+        volumes:
+          - $HOME/trafficlight-instance/:/app/instance/
     steps:
-      - name: checkout
-        uses: actions/checkout@v4
-      - name: run tl
-        run: |
-          docker run \
-            -v `pwd`/trafficlight-instance/:/app/instance/ \
-            ghcr.io/matrix-org/trafficlight:main
-      - name: scrape archive
-        if: always()
-        run: echo TODO archive data and TL output
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v2
+      - uses: docker/build-push-action@v4
+        with:
+          context: trafficlight
+          file: "Dockerfile"
+          tags: "ec-trafficlight:latest"
+          load: true
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          push: false
+      - name: run trafficlight
+        uses: ec-trafficlight:latest
